@@ -15,7 +15,7 @@ python scripts/audit.py /path/to/some-skill
 
 ```
 **[SEC-002] 凭证泄露 — `SKILL.md:6`**
-- 证据：`API_KEY = 'ghp_ABCDEFGHIJKL...'`
+- 证据：`API_KEY = '<示例值>'`
 - 风险：疑似真实 API Token（占位符如 xxx 不会命中）
 - 建议：删除并立即吊销该凭证；检查是否已被提交进 Git 历史
 ```
@@ -46,7 +46,7 @@ GitHub 仓库请先 `git clone` 到本地再扫，本技能不会自己去联网
 |---|---|
 | 隐藏字符 | 零宽空格、双向文本控制符、不可打印控制符 |
 | 提示词注入 | 忽略指令、要求隐瞒、伪造系统提示、跳过确认 |
-| 危险命令 | 递归删除、`curl \| sh`、动态执行、反弹 shell、静默绕过 |
+| 危险命令 | 递归删除根目录、下载内容直接管道给解释器、动态执行、反弹 shell、静默绕过 |
 | 凭证泄露 | 私钥 PEM、真实 Token、硬编码密码、敏感路径引用 |
 | 外发行为 | 网络请求、OAST 带外收集域名、实时通道 |
 | 包结构 | zip 路径穿越、符号链接、加密条目、压缩炸弹、体积异常、frontmatter 缺失 |
@@ -75,7 +75,7 @@ GitHub 仓库请先 `git clone` 到本地再扫，本技能不会自己去联网
 | 干净技能包 | 通过 | BLOCK 0 / WARN 0 / INFO 0 |
 | 零宽字符 + 双向控制符 | 阻断 | BLOCK 2 |
 | 私钥 + 硬编码 Token | 阻断 | BLOCK 2 |
-| `curl \| sh` + 递归删除 | 阻断 | BLOCK 2 |
+| 下载内容直接管道执行 + 递归删除 | 阻断 | BLOCK 2 |
 | OAST 域名 | 阻断 | BLOCK 1 |
 | 缺 frontmatter | 需人工确认 | WARN 1 |
 | ZIP 路径穿越 | 阻断 | BLOCK 1 |
