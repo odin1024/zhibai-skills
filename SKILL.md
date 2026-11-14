@@ -8,7 +8,7 @@ metadata:
   repo: https://github.com/odin1024/zhibai-skills
   license: MIT
   dsh_version: compatible
-  skills_count: 7
+  skills_count: 10
 ---
 
 # 知白守黑 · Agent Skills 合集索引
@@ -38,6 +38,9 @@ metadata:
 | 子女视角帮父母设手机防线、做家庭演练、处理「说了不听」 | `bama-fangpian` | `skills/bama-fangpian/SKILL.md` |
 | 单位、社区、学校、银行网点做反诈宣讲稿、短视频脚本、测试题 | `fanzha-sucai` | `skills/fanzha-sucai/SKILL.md` |
 | 安装第三方 Skill 之前做离线静态审计、查提示词注入/密钥/危险命令 | `skill-supply-chain-audit` | `skills/skill-supply-chain-audit/SKILL.md` |
+| 按评分办法倒推章节、写投标技术方案正文 | `bid-tech-proposal` | `skills/bid-tech-proposal/SKILL.md` |
+| 从选题验证到上架后数据复核，做自己的 Skill | `skill-dev-workshop` | `skills/skill-dev-workshop/SKILL.md` |
+| 一问一追地模拟面试、给逐答评分与复盘报告 | `interview-mock-chain` | `skills/interview-mock-chain/SKILL.md` |
 
 > 上表以仓库 `skills/` 目录实际内容为准；新增技能会同步补进本表。
 
