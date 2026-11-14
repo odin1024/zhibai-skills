@@ -283,14 +283,29 @@ def evidence_of(line: str, start: int, end: int) -> str:
     return snippet[:120] if len(snippet) <= 120 else snippet[:117] + "..."
 
 
+# 自检构造样本：按测试夹具处理，不把测试载荷当成被审技能的真实内容。
+# 只在目录扫描时按文件名识别，第三方包里的同名文件仍会被标注为「审计范围」提示。
+FIXTURE_NAMES = {"selftest.py"}
+# SEC-003 检测的是「访问凭证存放位置」，Markdown 里提到 .env 属于说明文字，不是访问行为。
+DOC_SUFFIXES = {".md", ".markdown", ".txt", ".rst"}
+
+
 def scan_text(entries: list[FileEntry]) -> list[Finding]:
     out: list[Finding] = []
     url_hits: dict[str, int] = {}
     for e in entries:
         if e.text is None:
             continue
+        suffix = PurePosixPath(e.path).suffix.lower()
+        if PurePosixPath(e.path).name in FIXTURE_NAMES:
+            out.append(Finding(INFO, "META-020", "审计范围", e.path, 0, "自检构造样本",
+                               "按测试夹具约定跳过规则匹配，避免把用于验证规则的样本当成真实载荷",
+                               "若需要连同样本一起审，去掉该约定后重跑；样本本身不应被复制到生产技能"))
+            continue
         for lineno, line in enumerate(e.text.splitlines(), start=1):
             for r in RULES:
+                if r["id"] == "SEC-003" and suffix in DOC_SUFFIXES:
+                    continue
                 m = r["regex"].search(line)
                 if not m:
                     continue
