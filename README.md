@@ -1,13 +1,15 @@
 # 知白守黑 · Agent Skills 合集
 
-六个可以直接装进 AI Agent 的技能，覆盖**投标技术文档**、**家庭防骗**、**简历诊断**三条线。
+七个可以直接装进 AI Agent 的技能，覆盖**投标技术文档**、**家庭防骗**、**简历诊断**、**技能供应链安全**四条线。
 每个技能都是一份 `SKILL.md` 加配套的深度知识库，不是提示词片段——有输入、有流程、有判定规则、有输出模板、有反模式。
+
+根目录的 `SKILL.md` 是**合集索引**：装它之后，Agent 会先判断你的需求属于哪一类，再自动去读对应子技能的工作流，不需要你记每个技能叫什么。只要一个能力时，也可以直接复制那个子目录。
 
 适用于 Claude Code、Codex、Cursor、WorkBuddy、DeepSeek Harness 等任何支持 Agent Skills 的客户端。
 
 ---
 
-## 为什么做这六个
+## 为什么做这七个
 
 选题来自对 SkillHub 平台 **22,312 个插件**和数万条技能搜索数据的实测分析，不是拍脑袋：
 
@@ -29,6 +31,7 @@
 | 防骗参谋 | `skills/fangpian-canmou` | 贴来可疑短信/链接/电话，30 秒判断并给止损动作 | 一段聊天记录、一条短信、一个链接 | 骗局类型 + 技术检测 + 风险结论 + 止损五步 |
 | 爸妈防骗 | `skills/bama-fangpian` | 子女视角帮父母布防线，解决「说了不听」 | 父母年龄、常用 App、生活习惯 | 易感画像 + 九项手机设置 + 五套沟通与演练脚本 |
 | 反诈素材库 | `skills/fanzha-sucai` | 单位、社区、银行网点做反诈宣传 | 受众、时长、形式 | 三档宣讲稿 + 六镜短视频脚本 + 测试题 + 素材清单 |
+| 技能供应链安全审计 | `skills/skill-supply-chain-audit` | 装第三方 Skill 前做离线静态审计，查隐藏字符、提示词注入、密钥、危险命令 | 技能目录 / zip 包 / GitHub 仓库 | 分级风险报告 + 证据行号 + 修复建议 + CI 退出码 |
 
 每个技能都含：
 
@@ -54,6 +57,8 @@ cp -r zhibai-skills/skills/fangpian-canmou ~/.claude/skills/
 
 也可以只复制单个技能的 `SKILL.md` + `references/`，技能本身不依赖运行时代码。
 
+若想让 Agent 自己判断该用哪个技能，把根目录的 `SKILL.md` 连同整个 `skills/` 目录一起放进技能目录即可；这份索引会按意图路由到对应子技能，不会在索引层凭空作答。
+
 ### DeepSeek Harness
 
 仓库打了 `dsh-plugin` topic，可在 SkillHub 插件页或 DSH 插件市场里搜索安装；也可以直接把安装提示词发给 Agent：
@@ -68,6 +73,7 @@ cp -r zhibai-skills/skills/fangpian-canmou ~/.claude/skills/
 
 ```
 zhibai-skills/
+├── SKILL.md                       合集索引（意图路由入口，可整体安装）
 ├── README.md
 ├── LICENSE
 └── skills/
@@ -76,7 +82,8 @@ zhibai-skills/
     ├── resume-checkup/
     ├── fangpian-canmou/
     ├── bama-fangpian/
-    └── fanzha-sucai/
+    ├── fanzha-sucai/
+    └── skill-supply-chain-audit/
         ├── SKILL.md
         ├── README.md
         ├── FAQ.md
@@ -102,7 +109,7 @@ zhibai-skills/
 
 ## 关于 SkillHub
 
-这六个技能同时已通过 API 发布到 [SkillHub](https://skillhub.cn)，带图标、标签与版本管理，可在站内搜索技能名直接安装。本仓库是开源副本，方便在各类 Agent 客户端里直接引用和二次修改。
+这七个技能已通过 API 发布到 [SkillHub](https://skillhub.cn)，带图标、标签与版本管理，可在站内搜索技能名直接安装。本仓库是开源副本，方便在各类 Agent 客户端里直接引用和二次修改。
 
 平台数据参考：题材分析见 `00-research/reports/`（本仓库不含调研资料，仅保留可安装技能）。
 
